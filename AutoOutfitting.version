@@ -1,6 +1,7 @@
 {
   "masterVersionFile": "https://raw.githubusercontent.com/Mjolniar/auto-outfitting/main/AutoOutfitting.version",
   "modName": "Auto Outfitting",
+  "modThreadId": "36377",
   "modVersion": {
     "major": 0,
     "minor": 5,

@@ -6,6 +6,7 @@
 - Auto Outfitting: Adds an Optimal option to the refit screen's autofit list. It picks weapons, fighters, hullmods, vents and capacitors from cargo, storage and optionally the market. Options are scored on combat numbers and on how the game's AI flies the ship.
 
 - Fleet buttons: Fit the whole fleet together, order missing weapons and analyze fleet weaknesses.
+- Forum: [topic 36377](https://fractalsoftworks.com/forum/index.php?topic=36377.0) on the Starsector forum.
 - Other autofit goals: Not changed.
 
 ## Install
