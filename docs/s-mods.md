@@ -23,6 +23,7 @@
 ## Limiting spending
 
 - Box unticked: Nothing is built in.
+- Undo: The debug option Remove all s-mods and refund story points (LunaLib menu) takes every s-mod off the fleet and returns the story points. See [Settings](settings.md).
 - Story points to keep (3): Floor the mod does not spend below.
 - S-mods per fit (1): New s-mods one fit builds into one ship.
 - Story points per Optimize fleet (2): Total one Optimize fleet spends.

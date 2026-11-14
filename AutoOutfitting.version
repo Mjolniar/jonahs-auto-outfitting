@@ -5,7 +5,7 @@
   "modVersion": {
     "major": 0,
     "minor": 5,
-    "patch": 32
+    "patch": 33
   },
   "directDownloadURL": "https://github.com/Mjolniar/auto-outfitting/releases/latest/download/AutoOutfitting.zip",
   "changelogURL": "https://raw.githubusercontent.com/Mjolniar/auto-outfitting/main/docs/changelog.md"

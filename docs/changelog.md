@@ -1,5 +1,9 @@
 # Patch notes
 
+## 0.5.33 - 2026-11-14
+
+- Debug: Added Remove all s-mods and refund story points to the LunaLib menu (F3). Turned on during a game, it removes every s-mod from every ship in the fleet, modules included, and returns one story point per s-mod. Built-in hullmods lose their s-mod bonus. Bonus XP is kept. Runs once per switch to On.
+
 ## 0.5.32 - 2026-11-14
 
 - S-mods: Picked for the ship without the d-mods restoration removes. D-mods built into the hull stay (Ill-Advised Modifications on the Colossus Mk.II and Luddic Path hulls). Weapons, vents and ordinary hullmods still count every d-mod.

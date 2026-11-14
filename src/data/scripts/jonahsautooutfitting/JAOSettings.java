@@ -20,6 +20,8 @@ public class JAOSettings {
     /** Score gain a bought weapon or LPC must add per 10,000 credits it costs (0.01 = 1%; 0 = prices ignored). */
     public static float buyGain = 0.01f;
     public static int smodCount = 1, smodReserve = 3, smodFleetMax = 2, smodWaitDays = 30;
+    /** Debug option: remove all s-mods from the fleet and refund them (JAODebug; acts on off -> on in the menu only). */
+    public static boolean refundSmods;
     /** Share of the player's credits a fleet production order may cost. */
     public static float productionBudget = 0.5f;
     /** Safety Overrides: 0 never, 1 frigates and destroyers, 2 whenever it scores best. */
@@ -81,6 +83,7 @@ public class JAOSettings {
         smodWaitDays = clamp(integer("jao_smodWaitDays", 30), 1, 720);
         smodReserve = clamp(integer("jao_smodReserve", 3), 0, 100);
         debug = bool("jao_debug", false);
+        refundSmods = bool("jao_debugRefundSmods", false);
         return true;
     }
 

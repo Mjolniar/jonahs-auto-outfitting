@@ -21,6 +21,12 @@ public class JAOLuna implements LunaSettingsListener {
     @Override
     public void settingsChanged(String modId) {
         if (!JAOSettings.MOD.equals(modId)) return;
+        boolean refundBefore = JAOSettings.refundSmods;
         if (JAOSettings.load()) { JAORatings.reset(); JAOGoals.refresh(); JAOModPlugin.publishStatus(); }
+        // debug option (0.5.33): remove every s-mod in the fleet and refund the story points, once per off -> on
+        if (JAODebug.shouldRun(refundBefore, JAOSettings.refundSmods, JAODebug.inGame())) {
+            try { JAODebug.refundFleet(); }
+            catch (Throwable t) { com.fs.starfarer.api.Global.getLogger(JAOLuna.class).warn("Auto Outfitting: debug s-mod refund failed", t); }
+        }
     }
 }

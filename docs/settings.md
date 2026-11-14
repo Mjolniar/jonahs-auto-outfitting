@@ -47,3 +47,4 @@
 - Production budget (50%): Share of credits one order may cost. The rest is ordered next time.
 - RAT settlement orders (On): A Random Assortment of Things settlement with Ordnance Manufacturing takes the biggest ships' items up to its budget. See [The fleet buttons](fleet-tools.md#order-fleet-weapons).
 - Log every fit (Off): Writes scores and reasons to `starsector.log`.
+- Debug: remove all s-mods and refund story points (Off): Turn on during a game and save the settings. Every ship in the fleet loses its s-mods, built-in hullmods lose their s-mod bonus, and each s-mod returns one story point. Bonus XP is kept. Runs once per switch to On. LunaLib menu only.

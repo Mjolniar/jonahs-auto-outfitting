@@ -40,3 +40,4 @@ jao_ratSettlement,RAT settlement orders,Boolean,true,,"Random Assortment of Thin
 ,,,,,,,,
 jao_miscHeader,Other,Header,Other,,,,,
 jao_debug,Log every fit,Boolean,false,,"Writes each Optimal fit's scores and reasons to starsector.log.",,,
+jao_debugRefundSmods,Debug: remove all s-mods and refund story points,Boolean,false,,"Turn on during a game and save the settings: every ship in your fleet loses its s-mods, built-in hullmods lose their s-mod bonus, and you get one story point back per s-mod. Bonus XP from building them is kept. Runs once each time it is turned on. Turn it off afterwards.",,,
