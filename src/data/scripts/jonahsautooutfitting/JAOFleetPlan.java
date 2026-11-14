@@ -100,6 +100,9 @@ final class JAOFleetPlan {
             if (s.locked) locked++;
             ships.add(s);
         }
+        // warships first, then civilians (0.5.34): the story points one Optimize fleet may spend go to warships before
+        // civilians' fleet-wide s-mods (a civilian capital used up the per-run cap before any warship was planned)
+        ships.sort(Comparator.comparingInt((ShipPlan s) -> s.civilian ? 1 : 0));
         done = ships.isEmpty();
     }
 

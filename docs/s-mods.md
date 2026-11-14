@@ -10,7 +10,7 @@
 - Method: Each candidate is judged by refitting the whole ship with it built in. The best goes first.
 - D-mods: S-mods are picked for the ship without the d-mods restoration removes. D-mods built into the hull stay (Ill-Advised Modifications on the Colossus Mk.II and Luddic Path hulls). The rest of the fit still counts every d-mod.
 - Stops at: The ship's s-mod limit, S-mods per fit (1), story points minus Story points to keep (3), or a gain below Minimum gain per s-mod (2%).
-- Optimize fleet: Spends at most Story points per Optimize fleet (2) in one run, biggest ships first.
+- Optimize fleet: Spends at most Story points per Optimize fleet (2) in one run, warships first, biggest first, then civilian ships.
 - Civilian ships: Use their own list. See [Civilian ships](civilian-ships.md).
 - Escort Package: Valued only as an s-mod. 0.98.5a: shield and armor damage taken -20% on destroyers, -10% on cruisers, counted for 60% of a fight. 0.98a: destroyer shields only.
 

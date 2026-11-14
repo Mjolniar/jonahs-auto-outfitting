@@ -2,7 +2,7 @@
   "id": "jonahs_auto_outfitting",
   "name": "Auto Outfitting",
   "author": "Mjolniar",
-  "version": "0.5.33",
+  "version": "0.5.34",
   "description": "Optimal autofit goal on the refit screen: builds the strongest loadout from the weapons, fighters and hullmods you own. Build styles: Balanced, Anti-shield, Anti-armor, Hull killer.",
   "gameVersion": "0.98.5a-RC4",
   "utility": true,

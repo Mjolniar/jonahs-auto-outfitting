@@ -1,5 +1,11 @@
 # Patch notes
 
+## 0.5.34 - 2026-11-14
+
+- Optimize fleet: Fixed civilian ships taking the per-run story points before warships. Warships are planned first.
+- S-mod note: Fixed the note naming the story point reserve when Story points per Optimize fleet was the limit.
+- Optimize fleet panel: Names the per-run cap when no s-mods are built.
+
 ## 0.5.33 - 2026-11-14
 
 - Debug: Added Remove all s-mods and refund story points to the LunaLib menu (F3). Turned on during a game, it removes every s-mod from every ship in the fleet, modules included, and returns one story point per s-mod. Built-in hullmods lose their s-mod bonus. Bonus XP is kept. Runs once per switch to On.

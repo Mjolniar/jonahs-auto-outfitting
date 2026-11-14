@@ -161,6 +161,7 @@ class JAOOptimizer {
             String memberId = member == null ? null : member.getId();
             if (limit <= 0) {
                 smodNote = why[0] <= 0 ? "already has " + why[3] + " of " + (why[3] + Math.max(0, why[0])) + " s-mods"
+                        : why[1] <= 0 && fleetCapUsed() ? "Story points per Optimize fleet (" + JAOSettings.smodFleetMax + ") used up by bigger ships"
                         : why[1] <= 0 ? "no story points" + (JAOSettings.smodReserve > 0 ? " above the " + JAOSettings.smodReserve + " kept in reserve" : "")
                         : "the s-mods per ship setting allows none";
                 if (why[0] <= 0 && memberId != null && !planning) JAOSMods.stopWaiting(memberId);
@@ -379,6 +380,13 @@ class JAOOptimizer {
         // why: room left, story points above the reserve, the per-ship setting, s-mods already on the ship
         why[0] = room; why[1] = sp; why[2] = JAOSettings.smodCount; why[3] = current.getSMods().size();
         return smodLimit(room, sp + JAOSettings.smodReserve, JAOSettings.smodReserve, JAOSettings.smodCount);
+    }
+
+    /** In an Optimize fleet plan, whether the per-run cap (not the player's story points) is what's left at 0. */
+    private boolean fleetCapUsed() {
+        if (storyPoints < 0) return false;
+        try { return Global.getSector().getPlayerStats().getStoryPoints() - JAOSettings.smodReserve > 0; }
+        catch (Throwable t) { return false; }
     }
 
     /** D-mods on the variant that a restoration removes: every d-mod except those the hull itself builds in. */

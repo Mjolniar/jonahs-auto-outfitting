@@ -75,7 +75,7 @@ final class JAOFleetPanel extends JAOOverlayPanel {
         if (!job.smods) head.addPara("S-mods: none. Optimize fleet only builds s-mods while \"Build in s-mods\" is ticked in the Autofit panel.", 4f, g);
         else if (job.storyPoints > 0) head.addPara("S-mods: %s to build in, one story point each (you have %s, keeping %s, at most %s per Optimize fleet; \"Build in s-mods\" is ticked in the Autofit panel).", 4f, h,
                 "" + job.storyPoints, "" + sp, "" + JAOSettings.smodReserve, "" + JAOSettings.smodFleetMax);
-        else head.addPara("S-mods: none to build (ships full, no story points above the %s kept, or nothing worth one).", 4f, g, h, "" + JAOSettings.smodReserve);
+        else head.addPara("S-mods: none to build (ships full, no story points above the %s kept, Story points per Optimize fleet at %s, or nothing worth one).", 4f, g, h, "" + JAOSettings.smodReserve, "" + JAOSettings.smodFleetMax);
         StringBuilder notes = new StringBuilder();
         int dmodShips = 0;
         for (JAOFleetPlan.ShipPlan s : job.fleet.ships) if (!s.civilian && dmods(s.member) > 0) dmodShips++;
