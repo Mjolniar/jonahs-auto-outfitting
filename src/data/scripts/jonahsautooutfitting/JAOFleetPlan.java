@@ -21,6 +21,7 @@ import com.fs.starfarer.api.plugins.AutofitPlugin.AvailableWeapon;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -108,6 +109,38 @@ final class JAOFleetPlan {
      */
     static int spendable(int have, int reserve, int perRun) {
         return Math.max(0, Math.min(have, reserve + Math.max(0, perRun)));
+    }
+
+    /**
+     * The rest of the fleet's utility hullmods for a civilian's logistics fit (JAOUtility, 0.5.31): civilians already
+     * planned count with their plan, every other ship as it is now.
+     */
+    private JAOUtility.Others utilityOthers(ShipPlan self) {
+        JAOUtility.Others o = new JAOUtility.Others();
+        try {
+            Map<String, ShipPlan> byId = new HashMap<>();
+            for (ShipPlan t : ships) byId.put(t.member.getId(), t);
+            for (FleetMemberAPI m : Global.getSector().getPlayerFleet().getFleetData().getMembersListCopy()) {
+                if (m.getId().equals(self.member.getId())) continue;
+                ShipPlan t = byId.get(m.getId());
+                float[] u = t != null && t.civilian && t.plan != null ? planUtility(t) : JAOUtility.read(m.getStats());
+                o.add(u, JAOUtility.civilian(m), m.isMothballed(), m.getRepairTracker().getCR() >= JAOUtility.HRS_MIN_CR);
+            }
+        } catch (Throwable t) {
+            Global.getLogger(JAOFleetPlan.class).warn("Auto Outfitting: couldn't read the fleet's utility hullmods for " + self.name, t);
+        }
+        return o;
+    }
+
+    private final Map<ShipPlan, Object[]> planUtility = new HashMap<>();
+
+    /** A planned ship's utility numbers, from a scratch member of its plan (kept until the plan changes). */
+    private float[] planUtility(ShipPlan t) {
+        Object[] c = planUtility.get(t);
+        if (c != null && c[0] == t.plan) return (float[]) c[1];
+        float[] u = JAOUtility.read(Global.getFactory().createFleetMember(com.fs.starfarer.api.fleet.FleetMemberType.SHIP, t.plan.clone()).getStats());
+        planUtility.put(t, new Object[]{t.plan, u});
+        return u;
     }
 
     /** Ships locked on the refit screen. */
@@ -228,6 +261,7 @@ final class JAOFleetPlan {
             PlanDelegate d = delegate(s.member, hullmods);
             JAOOptimizer o = new JAOOptimizer(plugin, v, d, JAOSettings.style, false, true);
             o.logistics = true;
+            o.utilityOthers = utilityOthers(s);
             o.planSmods = smods;
             o.storyPoints = storyPoints;
             o.run();

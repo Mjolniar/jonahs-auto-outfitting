@@ -99,6 +99,21 @@ final class JAOShip implements JAOSearch.World {
     @Override
     public float fixedWeaponOp() { return fixedWeaponOp; }
 
+    /** JAOUtility numbers (survey, Treasure Hunt, sensors, burn) with these hullmods and these as s-mods. */
+    float[] utility(Set<String> mods, Set<String> asSmods) {
+        Set<String> keep = smods;
+        try {
+            smods = new java.util.LinkedHashSet<>(asSmods);
+            setMods(mods);
+            scratch.setVariant(work, false, true);
+            return JAOUtility.read(scratch.getStats());
+        } catch (Throwable t) {
+            return new float[4];
+        } finally {
+            smods = keep;
+        }
+    }
+
     private static final String SKILLS = "com.fs.starfarer.api.impl.campaign.skills.";
     private static float oeFlux = -1f, oeCap = -1f, ewmNear = -1f, ewmFar = -1f, paSpeed = -1f, paEmp = -1f;
     private static boolean skillWarned;

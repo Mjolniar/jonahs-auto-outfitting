@@ -1,5 +1,14 @@
 # Patch notes
 
+## 0.5.31 - 2026-11-14
+
+- Surveying Equipment: Added only while the fleet's survey supply reduction is below the sector's need. The need brings 90% of the planets not yet fully surveyed to the 5-supply floor. A fully surveyed sector needs none.
+- Treasure Hunt Package: Added only while the fleet's boost is below 2x the median reward (35 with Treasure Hunt 2.3.1).
+- High Resolution Sensors: Added only while one more adds at least half its own range to the fleet's sensor bonus.
+- Burn hullmods: Added only on civilian ships slower than the slowest warship.
+- Fleet needs: Apply to logistics fits and built-in fleet-wide s-mods, in a single fit and in Optimize fleet. Other mods' hullmods with the same effect follow the same rule.
+- Fit log: Lists skipped utility hullmods and the fleet totals.
+
 ## 0.5.30 - 2026-11-14
 
 - Story points: With 5 story points and the new defaults, one Optimize fleet builds 2 s-mods and keeps 3.

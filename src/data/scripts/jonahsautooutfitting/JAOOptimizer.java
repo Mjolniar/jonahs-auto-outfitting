@@ -364,6 +364,8 @@ class JAOOptimizer {
 
     /** Story points the fleet plan has left for this ship (it shares them across the fleet); -1: the player's own. */
     int storyPoints = -1;
+    /** The rest of the fleet's utility hullmods, from the fleet plan (null: read from the player fleet). */
+    JAOUtility.Others utilityOthers;
 
     /** S-mods this fit may build in: the ship's limit left, story points above the reserve, the per-ship setting. */
     private int smodLimit(int[] why) {
@@ -727,7 +729,10 @@ class JAOOptimizer {
         int smodRoom = smodsOn && keeper(hull) ? smodLimit(new int[4]) : 0;
         Set<String> mods = new LinkedHashSet<>(current.getNonBuiltInHullmods());
         Set<String> smods = new LinkedHashSet<>();
-        List<String> skipped = new ArrayList<>();
+        List<String> skipped = new ArrayList<>(), enough = new ArrayList<>();
+        // utility hullmods whose fleet-wide effect stops adding up go on only while the rest of the fleet needs them
+        // (0.5.31, user: "watch out that we don't over-equip surveying packages"; JAOUtility)
+        JAOUtility.Others others = utilityOthers != null ? utilityOthers : JAOUtility.ofFleet(delegate.getFleetMember());
         for (String id : FLEET_WIDE) {
             if (smods.size() >= smodRoom) break;
             if (!available.contains(id) || hull.getBuiltInMods().contains(id) || JAOCompat.neverAdd(id) || JAOCompat.removedByHull(id, hull)) continue;
@@ -737,6 +742,7 @@ class JAOOptimizer {
             world.setSMods(smods);
             // one already fitted as an ordinary hullmod is simply built in
             if (!mods.contains(id) && !logisticsAllowed(world, id, mods, skipped)) continue;
+            if (!fleetNeeds(world, mods, smods, id, true, others, enough)) continue;
             mods.add(id);
             smods.add(id);
         }
@@ -763,6 +769,7 @@ class JAOOptimizer {
             if (used + cost > hullOp) continue;
             world.setSMods(smods);
             if (!logisticsAllowed(world, id, mods, skipped)) continue;
+            if (!fleetNeeds(world, mods, smods, id, false, others, enough)) continue;
             mods.add(id);
         }
         for (String m : mods) if (!smods.contains(m) && !current.hasHullMod(m)) current.addMod(m);
@@ -780,8 +787,25 @@ class JAOOptimizer {
         if (real || JAOSettings.debug) {
             Global.getLogger(JAOOptimizer.class).info("Auto Outfitting: " + shipName() + " (civilian) logistics fit: " + mods
                     + (smods.isEmpty() ? "" : ", built in " + smods + (built > 0 ? "" : " (not built: preview or no story points)"))
-                    + (skipped.isEmpty() ? "" : "; skipped for higher supply/fuel cost: " + skipped) + " in " + (System.nanoTime() - t0) / 1_000_000L + " ms");
+                    + (skipped.isEmpty() ? "" : "; skipped for higher supply/fuel cost: " + skipped)
+                    + (enough.isEmpty() ? "" : "; the fleet has enough of " + enough + " (" + JAOUtility.describe(others) + ")") + " in " + (System.nanoTime() - t0) / 1_000_000L + " ms");
         }
+    }
+
+    /**
+     * Whether the fleet still needs what id adds on this ship (JAOUtility: survey, Treasure Hunt, sensors, burn), as an
+     * s-mod when asSmod. Hullmods that add none of those always pass. A miss goes into enough for the fit log.
+     */
+    private boolean fleetNeeds(JAOShip world, Set<String> mods, Set<String> smods, String id, boolean asSmod, JAOUtility.Others others, List<String> enough) {
+        Set<String> m2 = new LinkedHashSet<>(mods);
+        m2.add(id);
+        Set<String> s2 = new LinkedHashSet<>(smods);
+        if (asSmod) s2.add(id);
+        float[] base = world.utility(mods, smods), with = world.utility(m2, s2);
+        world.setSMods(smods);
+        if (JAOUtility.useful(base, with, others, JAOUtility.surveyTarget(), JAOUtility.treasureTarget())) return true;
+        enough.add(id + " (" + JAOUtility.what(base, with) + ")");
+        return false;
     }
 
     /** Applicability like any hullmod; with drawbacks off, also no higher supply, recovery, deployment or fuel cost. */

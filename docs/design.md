@@ -210,6 +210,12 @@ Rules the model reproduces (offline test expectations only):
 - Limits: 2 logistics hullmods (built-in and s-modded do not count). Combat drawbacks are ignored. With drawbacks off, increases to supply, recovery, deployment or fuel cost are refused.
 - "Build in s-mods" ticked: cruisers and capitals build the first ones in (story points on Confirm only).
 - Spaceport: logistics hullmods are `req_spaceport`. Away from a spaceport the existing ones stay, weapons are removed, and the name says "(dock at a spaceport to add logistics hullmods)".
+- Fleet needs (0.5.31, `JAOUtility`, `JAOOptimizer.fleetNeeds`): each logistics pick and fleet-wide s-mod is measured on the scratch stats without and with it (`JAOShip.utility`: survey supplies reduction, `th_treasure_hunt_boost`, `HRS_SENSOR_RANGE_MOD`, max burn). If it raises any of them, it goes on only if one still helps the fleet (`JAOUtility.useful`):
+  - Survey: rest of fleet + this ship below `surveyTarget()`: 90th percentile over planets not `SurveyLevel.FULL` of the survey plugin's supplies (empty scratch fleet with the player's `SURVEY_COST_MULT` mods) minus `MIN_SUPPLIES_OR_MACHINERY`. Daily cache. Fallback 75.
+  - Treasure Hunt: below `(th_treasure_hunt_package_mult_clamp - 1) x median(th_rewards values)` (`THUtils.applyBoost`: min(3p, p + boost)). Fallback 20.
+  - Sensors: gain in `sensorBonus` (copy of `HighResSensors.getAdjustedHRSModifier`: max x (log2.5(total/max) + 1)) at least `HRS_MIN_SHARE` 0.5 of the ship's own value. Ships under 10% CR don't count.
+  - Burn: the ship's burn below `burnFloor`, the slowest non-civilian member (mothballed included).
+  - Others: single fit `ofFleet` (player fleet without this member, live stats); Optimize fleet `JAOFleetPlan.utilityOthers` (planned civilians from a scratch member of their plan).
 
 ## 7i. Scoring rework 0.3.0
 
