@@ -523,11 +523,12 @@ Switch: autofit panel checkbox "Build in s-mods (story points, permanent)" (`jao
 
 | Setting | Default | Notes |
 |---|---|---|
-| S-mods per ship | 3 | Within the ship's limit, `Misc.getMaxPermanentMods`: 2, +1/+1 with skills |
+| S-mods per fit | 1 | New s-mods per ship in one fit or one Optimize fleet, within the ship's limit, `Misc.getMaxPermanentMods`: 2, +1/+1 with skills (`JAOOptimizer.smodLimit`) |
+| Story points per Optimize fleet | 2 | `JAOFleetPlan.spendable`: the plan starts from min(story points, reserve + this) |
 | Minimum gain per s-mod | 2% | |
 | Wait for the best hullmods | on | |
 | How much better to wait for | 10% | |
-| Story points to keep | 0 | |
+| Story points to keep | 3 | |
 
 Planner (`JAOSMods`):
 1. Candidates: known, buildable hullmods that are not `no_build_in`, hidden or never_add; combat value per `jao_hullmods.csv`.

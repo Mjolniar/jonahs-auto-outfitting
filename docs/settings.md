@@ -33,12 +33,13 @@
 
 - S-mod settings: Used only while Build in s-mods is ticked. See [S-mods and story points](s-mods.md).
 
-- S-mods per ship (3): Maximum within the ship's limit.
+- S-mods per fit (1): New s-mods one fit or one Optimize fleet builds into one ship, within the ship's limit.
+- Story points per Optimize fleet (2): Most story points one Optimize fleet spends, biggest ships first.
 - Minimum gain per s-mod (2%): Required strength gain.
 - Wait for the best hullmods (On): Holds slots for clearly better hullmods not yet available.
 - How much better to wait for (10%): Margin that triggers waiting.
 - Most days to hold a slot (30): Then the best available is built.
-- Story points to keep (0): Never spends below this.
+- Story points to keep (3): Never spends below this.
 
 ## Fleet production and logging
 

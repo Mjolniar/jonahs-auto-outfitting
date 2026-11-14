@@ -371,7 +371,12 @@ class JAOOptimizer {
         int sp = (storyPoints >= 0 ? storyPoints : Global.getSector().getPlayerStats().getStoryPoints()) - JAOSettings.smodReserve;
         // why: room left, story points above the reserve, the per-ship setting, s-mods already on the ship
         why[0] = room; why[1] = sp; why[2] = JAOSettings.smodCount; why[3] = current.getSMods().size();
-        return Math.max(0, Math.min(Math.min(room, sp), JAOSettings.smodCount));
+        return smodLimit(room, sp + JAOSettings.smodReserve, JAOSettings.smodReserve, JAOSettings.smodCount);
+    }
+
+    /** New s-mods one ship may get: its free s-mod slots, the story points above the reserve, the per-fit setting. */
+    static int smodLimit(int room, int storyPoints, int reserve, int perFit) {
+        return Math.max(0, Math.min(Math.min(room, storyPoints - reserve), perFit));
     }
 
     /**

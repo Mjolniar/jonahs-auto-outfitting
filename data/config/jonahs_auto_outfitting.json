@@ -4,7 +4,7 @@
 	"jao_enabled":true,
 	"jao_roles":true,               # build each ship for its fleet role (skirmisher, flanker, line, anchor, carrier ...)
 	"jao_civilianLogistics":true,   # civilian ships get campaign hullmods, no weapons, no vents or capacitors
-	"jao_civilianSmods":true,       # with Build in s-mods ticked, civilian cruisers, capitals and salvage rigs build in fleet-wide hullmods (Treasure Hunt, surveying, sensors, burn)
+	"jao_civilianSmods":false,      # with Build in s-mods ticked, civilian cruisers, capitals and salvage rigs build in fleet-wide hullmods (Treasure Hunt, surveying, sensors, burn)
 	"jao_fleetBalance":true,        # complement the rest of the fleet (fighter roles, anti-shield / anti-armor)
 	"jao_style":"Auto",            # Auto, Balanced, Anti-shield, Anti-armor, Hull killer
 	"jao_allStyles":false,
@@ -25,12 +25,13 @@
 	"jao_skipWeapons":"",          # weapon ids or patterns the Optimal fit never picks, e.g. "stardust_lightproton, SKR_*"
 
 	# s-mods, used when the autofit box "Build in s-mods" is ticked (story points are permanent)
-	"jao_smodCount":3,
+	"jao_smodCount":1,               # new s-mods per ship in one fit or one Optimize fleet
+	"jao_smodFleetMax":2,            # story points one Optimize fleet spends in total, biggest ships first
 	"jao_smodMinGain":0.02,
 	"jao_smodWait":true,
 	"jao_smodWaitMargin":0.1,
 	"jao_smodWaitDays":30,
-	"jao_smodReserve":0,
+	"jao_smodReserve":3,             # story points never spent
 
 	# fleet production order (Order weapons for fleet button on the refit screen)
 	"jao_productionButton":true,

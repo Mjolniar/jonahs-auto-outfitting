@@ -17,7 +17,7 @@
 
 ## Building in fleet-wide hullmods
 
-- Requirements: Build in s-mods ticked and Civilian ships: build in fleet-wide hullmods on (default).
+- Requirements: Build in s-mods ticked and Civilian ships: build in fleet-wide hullmods on (off by default).
 - Ships: Cruisers and capitals (Atlas, Prometheus, Colossus) and salvage rigs of any size.
 - Order: Treasure Hunt Package (1, 2, 4 or 8 points by hull size, doubled as an s-mod), Surveying Equipment (5, 10, 20 or 40, doubled as an s-mod), High Resolution Sensors (frees a logistics slot), then burn speed.
 - Cost: One story point each, spent on Confirm or Apply to all ships, not below the reserve. See [S-mods and story points](s-mods.md).

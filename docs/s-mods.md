@@ -8,7 +8,8 @@
 ## How it picks
 
 - Method: Each candidate is judged by refitting the whole ship with it built in. The best goes first.
-- Stops at: The ship's s-mod limit, S-mods per ship (3), story points minus Story points to keep (0), or a gain below Minimum gain per s-mod (2%).
+- Stops at: The ship's s-mod limit, S-mods per fit (1), story points minus Story points to keep (3), or a gain below Minimum gain per s-mod (2%).
+- Optimize fleet: Spends at most Story points per Optimize fleet (2) in one run, biggest ships first.
 - Civilian ships: Use their own list. See [Civilian ships](civilian-ships.md).
 - Escort Package: Valued only as an s-mod. 0.98.5a: shield and armor damage taken -20% on destroyers, -10% on cruisers, counted for 60% of a fight. 0.98a: destroyer shields only.
 
@@ -21,5 +22,8 @@
 ## Limiting spending
 
 - Box unticked: Nothing is built in.
-- Story points to keep: Floor the mod does not spend below.
-- S-mods per ship and Minimum gain per s-mod: Lower the first or raise the second to build in only large upgrades.
+- Story points to keep (3): Floor the mod does not spend below.
+- S-mods per fit (1): New s-mods one fit builds into one ship.
+- Story points per Optimize fleet (2): Total one Optimize fleet spends.
+- Example: With 5 story points, one Optimize fleet builds 2 s-mods and keeps 3. Single fits build one s-mod each until 3 are left.
+- Minimum gain per s-mod (2%): Raise it to build in only large upgrades.

@@ -1,5 +1,15 @@
 # Patch notes
 
+## 0.5.30 - 2026-11-14
+
+- Story points: With 5 story points and the new defaults, one Optimize fleet builds 2 s-mods and keeps 3.
+- S-mods per fit: Renamed from S-mods per ship. Default 1, was 3.
+- Story points to keep: Default 3, was 0.
+- Story points per Optimize fleet: Added. Default 2. One Optimize fleet spends at most this many, biggest ships first.
+- Civilian ships: build in fleet-wide hullmods: Default off, was on.
+- Optimize fleet panel: Shows the per-run cap next to the story points kept.
+- Existing settings: Values already saved in LunaLib stay as set.
+
 ## 0.5.29 - 2026-11-13
 
 - Officer skills: The captain's ship skills count in every fit, elite effects included. Ships without a captain score as before.
