@@ -169,11 +169,16 @@ class JAOOptimizer {
                 // (a plan starts no timer: applying it does)
                 float waited = memberId == null ? 0f : JAOSMods.waitedDays(memberId, false);
                 boolean mayWait = JAOSettings.smodWait && waited < JAOSettings.smodWaitDays;
-                JAOSMods.Plan plan = new JAOSMods(world, p, slotsOf, stock, modCands, keepMods, limit)
+                // s-mods are permanent and d-mods can be removed (restoration, Hull Restoration), so s-mods are judged on
+                // the hull without its removable d-mods (0.5.32, user: building in hullmods to counter d-mods "is pretty
+                // stupid"); the ordinary fit below still counts them
+                List<String> dmods = removableDmods(current);
+                JAOShip smodWorld = dmods.isEmpty() ? world : restored(dmods, budget, hull);
+                JAOSMods.Plan plan = new JAOSMods(smodWorld, p, slotsOf, stock, modCands, keepMods, limit)
                         .plan(available, mayWait ? JAOSMods.everything() : available);
                 smodPlan = plan;
                 smods.addAll(plan.mods);
-                smodNote = plan.note;
+                smodNote = plan.note + (dmods.isEmpty() ? "" : " (judged without the removable d-mods " + dmods + ")");
                 if (plan.waiting && memberId != null && !planning) {
                     waited = JAOSMods.waitedDays(memberId, true);
                     smodNote += "; waited " + Math.round(waited) + " of " + JAOSettings.smodWaitDays + " days";
@@ -374,6 +379,30 @@ class JAOOptimizer {
         // why: room left, story points above the reserve, the per-ship setting, s-mods already on the ship
         why[0] = room; why[1] = sp; why[2] = JAOSettings.smodCount; why[3] = current.getSMods().size();
         return smodLimit(room, sp + JAOSettings.smodReserve, JAOSettings.smodReserve, JAOSettings.smodCount);
+    }
+
+    /** D-mods on the variant that a restoration removes: every d-mod except those the hull itself builds in. */
+    static List<String> removableDmods(ShipVariantAPI v) {
+        List<String> out = new ArrayList<>();
+        java.util.Set<String> seen = new LinkedHashSet<>(v.getPermaMods());
+        seen.addAll(v.getHullMods());
+        for (String id : seen) {
+            HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
+            if (dmodRemovable(id, spec != null && spec.hasTag("dmod"), v.getHullSpec().getBuiltInMods())) out.add(id);
+        }
+        return out;
+    }
+
+    /** A d-mod a restoration removes: tagged dmod and not built into the hull. */
+    static boolean dmodRemovable(String id, boolean dmodTag, java.util.Collection<String> hullBuiltIns) {
+        return dmodTag && (hullBuiltIns == null || !hullBuiltIns.contains(id));
+    }
+
+    /** A scratch world for the ship as a restoration would leave it (the removable d-mods taken off a copy). */
+    private JAOShip restored(List<String> dmods, int budget, ShipHullSpecAPI hull) {
+        ShipVariantAPI v = current.clone();
+        for (String id : dmods) { v.removePermaMod(id); v.removeMod(id); }
+        return new JAOShip(v, delegate, plugin.stats(), budget, plugin.getMaxVents(hull.getHullSize()), plugin.getMaxCaps(hull.getHullSize()));
     }
 
     /** New s-mods one ship may get: its free s-mod slots, the story points above the reserve, the per-fit setting. */

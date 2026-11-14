@@ -536,6 +536,8 @@ Switch: autofit panel checkbox "Build in s-mods (story points, permanent)" (`jao
 | How much better to wait for | 10% | |
 | Story points to keep | 3 | |
 
+D-mods (0.5.32): `JAOSMods` runs on `JAOOptimizer.restored`, a copy without `removableDmods` (dmod tag, not in the hull spec's built-in mods). The ordinary search still runs on the ship with its d-mods.
+
 Planner (`JAOSMods`):
 1. Candidates: known, buildable hullmods that are not `no_build_in`, hidden or never_add; combat value per `jao_hullmods.csv`.
 2. Penalty s-mods (`smodPenalty`: Heavy Armor, Expanded Missile Racks, Missile Autoloader, Fragment Swarm) stay candidates. The scratch member applies the penalty stats; the model scores handling (mobility factor) and missile rate (pool x min(1, missile rate of fire)). Heavy Armor: -25% turning and acceleration. Expanded Missile Racks: missile rate of fire x0.8. Missile Autoloader: 10 s cooldown, ammo x1.35 (was x1.5).

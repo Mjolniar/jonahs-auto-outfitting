@@ -1,5 +1,10 @@
 # Patch notes
 
+## 0.5.32 - 2026-11-14
+
+- S-mods: Picked for the ship without the d-mods restoration removes. D-mods built into the hull stay (Ill-Advised Modifications on the Colossus Mk.II and Luddic Path hulls). Weapons, vents and ordinary hullmods still count every d-mod.
+- Fit log: The s-mod note names the d-mods left out.
+
 ## 0.5.31 - 2026-11-14
 
 - Surveying Equipment: Added only while the fleet's survey supply reduction is below the sector's need. The need brings 90% of the planets not yet fully surveyed to the 5-supply floor. A fully surveyed sector needs none.
