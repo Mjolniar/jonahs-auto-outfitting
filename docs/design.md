@@ -530,11 +530,11 @@ Switch: autofit panel checkbox "Build in s-mods (story points, permanent)" (`jao
 | Setting | Default | Notes |
 |---|---|---|
 | S-mods per fit | 1 | New s-mods per ship in one fit or one Optimize fleet, within the ship's limit, `Misc.getMaxPermanentMods`: 2, +1/+1 with skills (`JAOOptimizer.smodLimit`) |
-| Story points per Optimize fleet | 2 | `JAOFleetPlan.spendable`: the plan starts from min(story points, reserve + this) |
+| Story points per Optimize fleet | 0 | `JAOFleetPlan.spendable`: 0 = all story points (down to the reserve), else min(story points, reserve + this) |
 | Minimum gain per s-mod | 2% | |
 | Wait for the best hullmods | on | |
 | How much better to wait for | 10% | |
-| Story points to keep | 3 | |
+| Story points to keep | 5 | |
 
 D-mods (0.5.32): `JAOSMods` runs on `JAOOptimizer.restored`, a copy without `removableDmods` (dmod tag, not in the hull spec's built-in mods). The ordinary search still runs on the ship with its d-mods.
 

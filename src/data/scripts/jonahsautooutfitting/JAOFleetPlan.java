@@ -87,7 +87,7 @@ final class JAOFleetPlan {
         this.weapons = weapons; this.fighters = fighters; this.fit = fit; this.smods = smods;
         this.market = market; this.tradeMode = tradeMode;
         this.hullmods = new ArrayList<>(new java.util.TreeSet<>(Global.getSector().getPlayerFaction().getKnownHullMods()));
-        // one Optimize fleet spends at most jao_smodFleetMax story points above the reserve, biggest ships first (0.5.30)
+        // one Optimize fleet spends story points down to the reserve, or at most jao_smodFleetMax of them when set (0.5.30; 0 = no cap since 0.5.35)
         this.storyPoints = spendable(Global.getSector().getPlayerStats().getStoryPoints(), JAOSettings.smodReserve, JAOSettings.smodFleetMax);
         List<FleetMemberAPI> order = new ArrayList<>(members);
         order.sort(Comparator.comparingInt((FleetMemberAPI m) -> -m.getHullSpec().getHullSize().ordinal())
@@ -107,11 +107,12 @@ final class JAOFleetPlan {
     }
 
     /**
-     * Story points the plan works with: the player's, cut to the reserve plus the per-run cap. The s-mod limit
-     * (JAOOptimizer.smodLimit) takes the reserve off again, so a plan spends at most perRun.
+     * Story points the plan works with: the player's, cut to the reserve plus the per-run cap (0 = no cap: down to the
+     * reserve). The s-mod limit (JAOOptimizer.smodLimit) takes the reserve off again, so a plan spends at most perRun.
      */
     static int spendable(int have, int reserve, int perRun) {
-        return Math.max(0, Math.min(have, reserve + Math.max(0, perRun)));
+        if (perRun <= 0) return Math.max(0, have);
+        return Math.max(0, Math.min(have, reserve + perRun));
     }
 
     /**

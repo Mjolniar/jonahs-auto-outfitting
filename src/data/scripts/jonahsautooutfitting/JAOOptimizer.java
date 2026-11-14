@@ -384,7 +384,7 @@ class JAOOptimizer {
 
     /** In an Optimize fleet plan, whether the per-run cap (not the player's story points) is what's left at 0. */
     private boolean fleetCapUsed() {
-        if (storyPoints < 0) return false;
+        if (storyPoints < 0 || JAOSettings.smodFleetMax <= 0) return false;
         try { return Global.getSector().getPlayerStats().getStoryPoints() - JAOSettings.smodReserve > 0; }
         catch (Throwable t) { return false; }
     }

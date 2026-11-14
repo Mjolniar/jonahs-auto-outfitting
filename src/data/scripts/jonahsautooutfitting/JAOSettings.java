@@ -19,7 +19,7 @@ public class JAOSettings {
     public static float fightSeconds = 90f, pdFloor = 1f, rareBonus = 0.15f, smodMinGain = 0.02f, smodWaitMargin = 0.1f;
     /** Score gain a bought weapon or LPC must add per 10,000 credits it costs (0.01 = 1%; 0 = prices ignored). */
     public static float buyGain = 0.01f;
-    public static int smodCount = 1, smodReserve = 3, smodFleetMax = 2, smodWaitDays = 30;
+    public static int smodCount = 1, smodReserve = 5, smodFleetMax, smodWaitDays = 30;
     /** Debug option: remove all s-mods from the fleet and refund them (JAODebug; acts on off -> on in the menu only). */
     public static boolean refundSmods;
     /** Share of the player's credits a fleet production order may cost. */
@@ -76,12 +76,12 @@ public class JAOSettings {
         safetyOverrides = "Never".equalsIgnoreCase(so) ? 0 : so.toLowerCase().startsWith("when") ? 2 : 1;
         skipWeapons = string("jao_skipWeapons", "").trim().isEmpty() ? new String[0] : string("jao_skipWeapons", "").trim().split("\s*,\s*");
         smodCount = clamp(integer("jao_smodCount", 1), 1, 3);
-        smodFleetMax = clamp(integer("jao_smodFleetMax", 2), 0, 100);
+        smodFleetMax = clamp(integer("jao_smodFleetMax", 0), 0, 100);
         smodMinGain = clamp(dbl("jao_smodMinGain", 0.02f), 0f, 0.2f);
         smodWait = bool("jao_smodWait", true);
         smodWaitMargin = clamp(dbl("jao_smodWaitMargin", 0.1f), 0f, 1f);
         smodWaitDays = clamp(integer("jao_smodWaitDays", 30), 1, 720);
-        smodReserve = clamp(integer("jao_smodReserve", 3), 0, 100);
+        smodReserve = clamp(integer("jao_smodReserve", 5), 0, 100);
         debug = bool("jao_debug", false);
         refundSmods = bool("jao_debugRefundSmods", false);
         return true;
@@ -115,7 +115,7 @@ public class JAOSettings {
         return (enabled ? "Optimal goal on" : "Optimal goal off") + ", style " + style.label + (roles ? ", fleet roles" : "") + (civilianLogistics ? ", civilian logistics fits" + (civilianSmods ? " with fleet-wide s-mods" : "") : "") + (fleetBalance ? ", fleet balance" : "") + (ratSettlement ? "" : ", RAT settlement orders off") + (allStyles ? " (+ one goal per style)" : "")
                 + ", range " + (range == 1 ? "long" : range == 2 ? "close" : "auto") + ", fight " + (int) fightSeconds + "s"
                 + ", special weapons " + specialWeapons + (preferRare ? ", rare bonus " + rareBonus : "") + (cheatItems ? ", cheat-only items allowed" : "") + (communityTiers ? "" : ", no community tiers") + ", PD floor " + pdFloor + ", buy gain " + buyGain + " per 10k" + ", logistics " + logistics + ", drawbacks " + (allowDrawbacks ? "allowed" : "never") + ", SO " + (safetyOverrides == 0 ? "never" : safetyOverrides == 1 ? "frigates/destroyers" : "when best")
-                + ", s-mods up to " + smodCount + " per fit, " + smodFleetMax + " SP per Optimize fleet (min gain " + smodMinGain + (smodWait ? ", wait " + smodWaitMargin + " up to " + smodWaitDays + " days" : "") + ", keep " + smodReserve + " SP"
+                + ", s-mods up to " + smodCount + " per fit, " + (smodFleetMax > 0 ? smodFleetMax + " SP per Optimize fleet" : "no SP limit per Optimize fleet") + " (min gain " + smodMinGain + (smodWait ? ", wait " + smodWaitMargin + " up to " + smodWaitDays + " days" : "") + ", keep " + smodReserve + " SP"
                 + ")"
                 + (debug ? ", debug log" : "");
     }

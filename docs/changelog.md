@@ -1,5 +1,11 @@
 # Patch notes
 
+## 0.5.35 - 2026-11-14
+
+- Optimize fleet: Spends story points down to Story points to keep. Fixed it stopping at 2 per run.
+- Story points per Optimize fleet: Default 0, was 2. 0 = no limit.
+- Story points to keep: Default 5, was 3.
+
 ## 0.5.34 - 2026-11-14
 
 - Optimize fleet: Fixed civilian ships taking the per-run story points before warships. Warships are planned first.
